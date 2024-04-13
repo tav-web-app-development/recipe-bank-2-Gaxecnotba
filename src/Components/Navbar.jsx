@@ -17,6 +17,9 @@ function Navbar() {
             <li>
               <a href="#">Contact</a>
             </li>
+            <li>
+              <a href="#footer">End of Page</a>
+            </li>
           </ul>
         </nav>
       </div>
