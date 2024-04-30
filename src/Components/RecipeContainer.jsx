@@ -46,7 +46,6 @@ export default function RecipeContainer({ recipe, onEdit, onDelete }) {
         ) : (
           <h2>{recipe.title}</h2>
         )}
-        ;
         {edit ? (
           <label htmlFor="description">
             Description:
