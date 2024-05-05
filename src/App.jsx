@@ -1,9 +1,12 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
-import RecipeContainer from "./Components/RecipeContainer";
 import "./assets/style.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./Components/HomeRecipe";
+import NewRecipe from "./Components/NewRecipe";
+import Contact from "./Components/Contact";
 
 function App() {
   const [recipes, setRecipes] = useState([]);
@@ -47,19 +50,36 @@ function App() {
     const prevRecipes = recipes.filter((recipe) => recipe.id !== recipeId);
     setRecipes(prevRecipes), [];
   };
+  const handleAddRecipe = (newRecipe) => {
+    setRecipes([...recipes, newRecipe]);
+  };
 
   return (
     <>
-      <Navbar />
-      {recipes.map((data) => (
-        <RecipeContainer
-          recipe={data}
-          key={data.id}
-          onEdit={EditRecipe}
-          onDelete={DeletedRecipe}
-        />
-      ))}
-      <Footer />
+      <Router>
+        <div>
+          <Navbar />
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <Home
+                  recipes={recipes}
+                  onEdit={EditRecipe}
+                  onDelete={DeletedRecipe}
+                />
+              }
+            />
+            <Route
+              path="/add-new-recipe"
+              element={<NewRecipe addnewRecipe={handleAddRecipe} />}
+            />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+          <Footer />
+        </div>
+      </Router>
     </>
   );
 }
